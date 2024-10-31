@@ -1,0 +1,42 @@
+@startuml
+class Author {
+    - name: String
+    - titles: ArrayList<Title>
+    + Author(name: String)
+    + addTitle(title: Title): void
+    + calculateTotalPay(): double
+    + getName(): String
+}
+
+abstract class Title {
+    - title: String
+    - literatureType: String
+    - copies: int
+    + Title(title: String, literatureType: String, copies: int)
+    + calculateRoyalty(): double
+    {abstract} + calculatePoints(): double
+    {abstract} + calculateLiteraturePoints(): double
+}
+
+class PrintedBook {
+    - pages: int
+    + PrintedBook(title: String, literatureType: String, copies: int, pages: int)
+    + calculatePoints(): double
+    + calculateLiteraturePoints(): double
+}
+
+class AudioBook {
+    - durationInMinutes: int
+    + AudioBook(title: String, literatureType: String, copies: int, durationInMinutes: int)
+    + calculatePoints(): double
+    + calculateLiteraturePoints(): double
+}
+
+class LibraryRoyaltyCalculator {
+    + main(args: String[]): void
+}
+
+Author "1" --> "0..*" Title : contains
+Title <|-- PrintedBook
+Title <|-- AudioBook
+@enduml
